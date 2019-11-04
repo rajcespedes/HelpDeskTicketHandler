@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29318.209
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpDeskTicketHandler", "HelpDeskTicketHandler\HelpDeskTicketHandler.csproj", "{9EBB6DBE-029A-4C4F-BDE0-7CD64B559261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpDeskTicketHandler.Data", "HelpDeskTicketHandler.Data\HelpDeskTicketHandler.Data.csproj", "{0216EE24-470B-4AA4-95FD-C838D7DD451E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EBB6DBE-029A-4C4F-BDE0-7CD64B559261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EBB6DBE-029A-4C4F-BDE0-7CD64B559261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EBB6DBE-029A-4C4F-BDE0-7CD64B559261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBB6DBE-029A-4C4F-BDE0-7CD64B559261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0216EE24-470B-4AA4-95FD-C838D7DD451E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0216EE24-470B-4AA4-95FD-C838D7DD451E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0216EE24-470B-4AA4-95FD-C838D7DD451E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0216EE24-470B-4AA4-95FD-C838D7DD451E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8637122E-CDE7-4566-9135-284D01D32726}
+	EndGlobalSection
+EndGlobal

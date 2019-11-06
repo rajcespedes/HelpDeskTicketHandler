@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace HelpDeskTicketHandler.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly ITicketService ticketService;

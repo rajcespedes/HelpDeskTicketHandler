@@ -12,52 +12,38 @@ using System.Threading.Tasks;
 using HelpDeskTicketHandler.Data.Entities;
 using HelpDeskTicketHandler.ViewModels;
 using System.Net;
+using Microsoft.Owin.Security;
 
 namespace HelpDeskTicketHandler.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-
-        public ApplicationSignInManager SignInManager
+        private ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
+                return HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
         }
 
-        public ApplicationUserManager UserManager
+        private ApplicationUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-            private set
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
             {
-                _userManager = value;
+                return HttpContext.GetOwinContext().Authentication;
             }
         }
 
 
-
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -66,7 +52,7 @@ namespace HelpDeskTicketHandler.Controllers
             return View();
         }
 
-        //
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -88,13 +74,14 @@ namespace HelpDeskTicketHandler.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
                     return View(model);
             }
         }
+
 
         // GET: /Account/Register
         [AllowAnonymous]
@@ -103,7 +90,7 @@ namespace HelpDeskTicketHandler.Controllers
             return View();
         }
 
-        //
+        
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -128,30 +115,11 @@ namespace HelpDeskTicketHandler.Controllers
         }
 
      
-        // POST: /Account/LogOff
-        public async Task<ActionResult> Logout()
+        // POST: /Account/Logout
+        public ActionResult Logout()
         {
-            Request.GetOwinContext().Authentication.SignOut("ApplicationCookie");
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("login");
-        }
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                }
-            }
-
-            base.Dispose(disposing);
         }
 
         private void AddErrors(IdentityResult result)
